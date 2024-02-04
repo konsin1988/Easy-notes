@@ -35,6 +35,45 @@ section .main {
   margin: 3px;
   font-size: 2.2em;
 }
+.main .header h1 span {
+  position: relative;
+  color: #1a1a1a48;
+  animation: displayText 9s infinite;
+  animation-delay: calc(-3s * var(--i));
+}
+@keyframes displayText {
+  0% {
+    display: inline-block;
+  }
+  33.33%,
+  100% {
+    display: none;
+  }
+}
+.header h1 span::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  border-right: 2px solid gray;
+  filter: drop-shadow(3px 3px 2px #373737);
+  animation: movePointer 3s linear infinite;
+  overflow: hidden;
+  white-space: nowrap;
+}
+@keyframes movePointer {
+  0%,
+  10%,
+  100% {
+    width: 0;
+  }
+  70%,
+  90% {
+    width: 100%;
+  }
+}
 .main input {
   font-size: 1.1em;
   padding: 10px;
@@ -46,6 +85,7 @@ section .main {
   background: #e3e3e3;
   cursor: pointer;
 }
+
 .main input:hover::-webkit-input-placeholder {
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -116,6 +156,7 @@ section .main {
 }
 .main .notes {
   flex: 3;
+  position: relative;
 }
 
 .main .note {
