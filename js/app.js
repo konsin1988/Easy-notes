@@ -81,11 +81,11 @@ const notes = [
 function render(array) {
   listNotes.innerHTML = "";
   if (notes.length === 0) {
-    listNotes.innerHTML = `<li class="note">
-            <p>
-              Congratulation!!! All tasks done! 
+    listNotes.innerHTML = `
+            <p class="done">
+              Congratulation!!! All tasks completed! 
             </p>
-            </li>`;
+            `;
   }
   for (let i = 0; i < array.length; i++) {
     listNotes.insertAdjacentHTML("afterbegin", getNoteTemplate(array[i], i));

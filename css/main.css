@@ -252,3 +252,11 @@ section .main {
     flex: 0.2;
   }
 }
+.done {
+  color: #e3e3e3;
+  padding-top: 20px;
+  font-size: x-large;
+  text-shadow: 5px 5px 3px rgba(36, 36, 36, 0.825);
+  font-weight: 700;
+  text-align: center;
+}
