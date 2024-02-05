@@ -188,7 +188,7 @@ section .main {
   /* color: #000000; */
   text-shadow: 3px 3px 5px rgba(115, 114, 114, 0.596);
 }
-.main .note p .complete {
+.main .note .complete {
   text-decoration: line-through;
 }
 .main .note .icons {
@@ -203,8 +203,13 @@ section .main {
   padding: 5px;
 }
 
-.note .icons #agree {
+.note .icons .completed {
+  background: rgba(223, 207, 33, 0.856);
+}
+.note .icons .not-completed {
   background: rgba(16, 82, 16, 0.897);
+}
+.note .icons #agree {
   border: 2px solid black;
   margin: 3px;
   border-radius: 8px;
@@ -219,9 +224,11 @@ section .main {
 .note .icons svg #svg_cancel {
   fill: #fff;
 }
+.note .icons .not-completed:hover {
+  background: green;
+}
 .note .icons #agree:hover {
   transform: scale(1.1);
-  background: green;
   transition: 0.2s;
   cursor: pointer;
 }

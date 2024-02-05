@@ -4,12 +4,14 @@ const listNotes = document.getElementById("list");
 const btnAgree = document.getElementById("agree");
 const btnCancel = document.getElementById("cancel");
 
-function getNoteTemplate(title) {
+function getNoteTemplate(note, index) {
   return `<li class="note">
-            <p>${title}</p>
+            <p class=${note.completed ? "complete" : ""}>${note.title}</p>
             <div class="icons">
-              <div id="agree">
-                <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <div id="agree" class=${
+                note.completed ? "completed" : "not-completed"
+              } data-index="${index}" data-type="complete_data">
+                <svg data-index="${index}" data-type="complete_data" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                   <title />
                   <g data-name="Layer 25" id="svg_agree">
                     <path
@@ -18,8 +20,8 @@ function getNoteTemplate(title) {
                   </g>
                 </svg>
               </div>
-              <div id="cancel">
-                <svg
+              <div id="cancel" data-index="${index}" data-type="remove_data"  >
+                <svg data-index="${index}" data-type="remove_data"
                   viewBox="0 0 36 36"
                   xml:space="preserve"
                   xmlns="http://www.w3.org/2000/svg"
@@ -38,22 +40,55 @@ function getNoteTemplate(title) {
             </div>
           </li>`;
 }
-
-const notes = ["Take a shower", "read the book"];
-
-function render(array) {
-  for (let element of array) {
-    listNotes.insertAdjacentHTML("beforeend", getNoteTemplate(element));
-  }
-}
-render(notes);
-
+/* Onclick add*/
 addNote.onclick = function () {
   if (inputName.value.length === 0) {
     return;
   }
-  listNotes.insertAdjacentHTML("afterbegin", getNoteTemplate(inputName.value));
+  const newNote = {
+    title: inputName.value,
+    complete: false,
+  };
+  notes.push(newNote);
+  render(notes);
   inputName.value = "";
 };
 
-btnAgree.onclick = function () {};
+// Onclick completed/remove
+listNotes.onclick = function (event) {
+  if (event.target.dataset.index) {
+    const index = Number(event.target.dataset.index);
+    const type = event.target.dataset.type;
+    if (type === "complete_data") {
+      notes[index].completed = !notes[index].completed;
+    }
+    if (type === "remove_data") {
+      notes.splice(index, 1);
+    }
+    render(notes);
+  }
+};
+
+const notes = [
+  {
+    title: `You can add ("Add the note"), check as
+               <span class="complete"> complete</span>(Green button) or remove
+               (Red cross) the notes`,
+    completed: false,
+  },
+];
+
+function render(array) {
+  listNotes.innerHTML = "";
+  if (notes.length === 0) {
+    listNotes.innerHTML = `<li class="note">
+            <p>
+              Congratulation!!! All tasks done! 
+            </p>
+            </li>`;
+  }
+  for (let i = 0; i < array.length; i++) {
+    listNotes.insertAdjacentHTML("afterbegin", getNoteTemplate(array[i], i));
+  }
+}
+render(notes);
